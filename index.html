@@ -3,73 +3,181 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cloaked Site File Generator</title>
+    <title>Masker</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #111;
+            color: #fff;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background-color: #f4f4f9;
+            transition: background-color 0.3s ease;
         }
+
         .container {
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            max-width: 400px;
+            background-color: #222;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
             width: 100%;
+            max-width: 450px;
         }
+
         h1 {
-            font-size: 1.5rem;
-            color: #333;
+            font-size: 2rem;
             text-align: center;
+            color: #fff;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            text-shadow: 
+                0 0 20px rgba(0, 0, 0, 0.6),
+                0 0 30px rgba(0, 0, 0, 0.6),
+                0 0 40px rgba(0, 0, 0, 0.5),
+                0 0 50px rgba(0, 0, 0, 0.4),
+                0 0 60px rgba(0, 0, 0, 0.3),
+                0 0 70px rgba(0, 0, 0, 0.2);
+            animation: auraAnimation 2s infinite alternate, colorChange 3s infinite alternate;
         }
+
+        @keyframes auraAnimation {
+            0% {
+                text-shadow: 
+                    0 0 20px rgba(0, 0, 0, 0.6),
+                    0 0 30px rgba(0, 0, 0, 0.6),
+                    0 0 40px rgba(0, 0, 0, 0.5),
+                    0 0 50px rgba(0, 0, 0, 0.4),
+                    0 0 60px rgba(0, 0, 0, 0.3),
+                    0 0 70px rgba(0, 0, 0, 0.2);
+            }
+            50% {
+                text-shadow: 
+                    0 0 30px rgba(0, 0, 0, 0.7),
+                    0 0 40px rgba(0, 0, 0, 0.7),
+                    0 0 50px rgba(0, 0, 0, 0.6),
+                    0 0 60px rgba(0, 0, 0, 0.5),
+                    0 0 70px rgba(0, 0, 0, 0.4),
+                    0 0 80px rgba(0, 0, 0, 0.3);
+            }
+            100% {
+                text-shadow: 
+                    0 0 40px rgba(0, 0, 0, 0.8),
+                    0 0 50px rgba(0, 0, 0, 0.8),
+                    0 0 60px rgba(0, 0, 0, 0.7),
+                    0 0 70px rgba(0, 0, 0, 0.6),
+                    0 0 80px rgba(0, 0, 0, 0.5),
+                    0 0 90px rgba(0, 0, 0, 0.4);
+            }
+        }
+
+        @keyframes colorChange {
+            0% {
+                color: #fff;
+            }
+            50% {
+                color: #aaa;
+            }
+            100% {
+                color: #fff;
+            }
+        }
+
         label {
             display: block;
-            font-weight: bold;
-            margin-top: 15px;
-            color: #555;
-        }
-        input {
-            width: calc(100% - 20px);
-            padding: 10px;
-            margin-top: 5px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
             font-size: 1rem;
+            margin-bottom: 5px;
+            color: #ccc;
+            font-weight: bold;
         }
-        button {
-            display: block;
+
+        input, select, button {
             width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 8px;
+            background-color: #333;
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        input:focus, select:focus, button:focus {
+            outline: none;
+            border: 2px solid #007BFF;
+        }
+
+        button {
             background-color: #007BFF;
             color: #fff;
-            border: none;
-            padding: 10px;
-            font-size: 1rem;
-            font-weight: bold;
-            border-radius: 4px;
             cursor: pointer;
-            margin-top: 20px;
-            transition: background-color 0.3s;
+            font-weight: bold;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
         }
+
         button:hover {
             background-color: #0056b3;
+            transform: scale(1.05);
         }
+
+        button:active {
+            background-color: #003f8e;
+            transform: scale(1.1);
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background-color: #111;
+            transition: width 0.4s ease, height 0.4s ease, top 0.4s ease, left 0.4s ease;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+        }
+
+        button:hover::before {
+            width: 350%;
+            height: 350%;
+            top: -25%;
+            left: -25%;
+        }
+
+        button span {
+            position: relative;
+            z-index: 1;
+        }
+
+        button:hover {
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+        }
+
         .footer {
-            margin-top: 15px;
             font-size: 0.9rem;
             text-align: center;
-            color: #777;
+            color: #aaa;
+            margin-top: 15px;
         }
+
         .footer a {
             color: #007BFF;
             text-decoration: none;
         }
+
         .footer a:hover {
             text-decoration: underline;
         }
@@ -77,7 +185,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Cloaked Site File Generator</h1>
+        <h1>Masker</h1>
         
         <label for="url-input">Enter URL for Iframe:</label>
         <input type="text" id="url-input" placeholder="Enter the URL that you want the file to open" />
@@ -85,71 +193,124 @@
         <label for="title-input">Enter Page Title:</label>
         <input type="text" id="title-input" placeholder="Enter the title for the file tab" />
         
-        <label for="favicon-input">Enter URL to Cloak as:</label>
-        <input type="text" id="favicon-input" placeholder="Type URL of any website you want the file to cloak as." />
+        <label for="favicon-input">Choose Image for Favicon:</label>
+        <input type="file" id="favicon-input" accept="image/*" />
+
+        <label for="pre-saved-options">Choose Pre-saved Option:</label>
+        <select id="pre-saved-options">
+            <option value="">Select an option</option>
+            <option value="google-classroom">Google Classroom</option>
+            <option value="clever">Clever</option>
+            <option value="gmail">Gmail</option>
+        </select>
         
-        <button onclick="downloadHtml()">Download File</button>
+        <button id="generate-button"><span>Download File</span></button>
         
         <div class="footer">
             Made by <a href="https://github.com/Blobby-Boi/">Blobby Boi</a>
         </div>
+        <div class="footer"> 
+            Contributed by <a href="https://github.com/jOaawd">FMODE</a>
+        </div>
     </div>
 
     <script>
-        function normalizeUrl(url) {
+        const normalizeUrl = (url) => {
             if (!url.startsWith('http://') && !url.startsWith('https://')) {
                 return 'https://' + url;
             }
             return url;
-        }
+        };
 
-        function downloadHtml() {
-            const rawUrl = document.getElementById('url-input').value;
-            const rawBaseUrl = document.getElementById('favicon-input').value;
-            const title = document.getElementById('title-input').value || "Iframe Page";
+        document.getElementById('pre-saved-options').addEventListener('change', (e) => {
+            const titleInput = document.getElementById('title-input');
+            const faviconInput = document.getElementById('favicon-input');
+            if (e.target.value) {
+                titleInput.disabled = true;
+                faviconInput.disabled = true;
+                
+                if (e.target.value === 'google-classroom') {
+                    titleInput.value = 'Home';
+                } else if (e.target.value === 'clever') {
+                    titleInput.value = 'Clever | Portal';
+                } else if (e.target.value === 'gmail') {
+                    titleInput.value = 'Inbox (13,507) - schoolgmail@gmail.com';
+                }
+            } else {
+                titleInput.disabled = false;
+                faviconInput.disabled = false;
+                titleInput.value = '';
+            }
+        });
 
-            const url = normalizeUrl(rawUrl);
-            const baseUrl = rawBaseUrl ? normalizeUrl(rawBaseUrl) : "";
+        document.getElementById('generate-button').addEventListener('click', () => {
+            const url = normalizeUrl(document.getElementById('url-input').value.trim());
+            const titleInput = document.getElementById('title-input');
+            const title = titleInput.value.trim() || "Iframe Page";
 
-            const faviconUrl = `https://www.google.com/s2/favicons?sz=64&domain=${baseUrl}`;
+            const faviconInput = document.getElementById('favicon-input');
+            let faviconUrl = '';
 
-            const htmlContent = `
-                <!DOCTYPE html>
-                <html lang="en">
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>${title}</title>
-                    <link rel="icon" href="${faviconUrl}" type="image/x-icon">
-                    <style>
-                        body, html {
-                            margin: 0;
-                            padding: 0;
-                            height: 100%;
-                            overflow: hidden;
-                        }
-                        iframe {
-                            width: 100%;
-                            height: 100%;
-                            border: none;
-                        }
-                    </style>
-                </head>
-                <body>
-                    <iframe src="${url}"></iframe>
-                </body>
-                </html>
-            `;
+            const preSavedOption = document.getElementById('pre-saved-options').value;
+            if (preSavedOption === 'google-classroom') {
+                faviconUrl = 'https://play-lh.googleusercontent.com/w0s3au7cWptVf648ChCUP7sW6uzdwGFTSTenE178Tz87K_w1P1sFwI6h1CLZUlC2Ug';
+            } else if (preSavedOption === 'clever') {
+                faviconUrl = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSui5oHbrCBkSX65dyyM48zoF-a0Oxim3C_bg&s';
+            } else if (preSavedOption === 'gmail') {
+                faviconUrl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Gmail_icon_%282020%29.svg/2560px-Gmail_icon_%282020%29.svg.png';
+            }
 
-            const blob = new Blob([htmlContent], { type: 'text/html' });
+            if (faviconInput.files.length > 0) {
+                const reader = new FileReader();
+                reader.onloadend = function() {
+                    faviconUrl = reader.result;
+                    generateFile(faviconUrl);
+                };
+                reader.readAsDataURL(faviconInput.files[0]);
+            } else if (!faviconUrl) {
+                faviconUrl = `https://www.google.com/s2/favicons?sz=64&domain=${url}`;
+                generateFile(faviconUrl);
+            } else {
+                generateFile(faviconUrl);
+            }
 
-            const link = document.createElement('a');
-            const fileName = title.replace(/\s+/g, '_') + '.html';
-            link.href = URL.createObjectURL(blob);
-            link.download = fileName;
+            function generateFile(faviconUrl) {
+                const htmlContent = `
+                    <!DOCTYPE html>
+                    <html lang="en">
+                    <head>
+                        <meta charset="UTF-8">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <title>${title}</title>
+                        <link rel="icon" href="${faviconUrl}" type="image/x-icon">
+                        <style>
+                            body, html {
+                                margin: 0;
+                                padding: 0;
+                                height: 100%;
+                                overflow: hidden;
+                                background-color: #111;
+                            }
+                            iframe {
+                                width: 100%;
+                                height: 100%;
+                                border: none;
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        <iframe src="${url}"></iframe>
+                    </body>
+                    </html>
+                `;
 
-            link.click();
-        }
+                const blob = new Blob([htmlContent], { type: 'text/html' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = `${title.replace(/\s+/g, '_')}.html`;
+                link.click();
+            }
+        });
     </script>
 </body>
 </html>
